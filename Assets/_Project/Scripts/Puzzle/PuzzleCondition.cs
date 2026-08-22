@@ -4,6 +4,15 @@ using UnityEngine.Events;
 
 public class PuzzleCondition : MonoBehaviour
 {
+    public enum LogicMode
+    {
+        All,
+        Any
+    }
+
+    [SerializeField]
+    private LogicMode logicMode = LogicMode.All;
+
     [SerializeField]
     private List<bool> conditions = new List<bool>
     {
@@ -13,6 +22,9 @@ public class PuzzleCondition : MonoBehaviour
 
     [SerializeField]
     private UnityEvent onSolved;
+    [SerializeField]
+ 
+    private UnityEvent onUnsolved;
 
     private bool isSolved;
 
@@ -37,28 +49,41 @@ public class PuzzleCondition : MonoBehaviour
 
     private void Evaluate()
     {
-        bool solved = true;
-
-        foreach (bool condition in conditions)
-        {
-            if (!condition)
-            {
-                solved = false;
-                break;
-            }
-        }
+        bool solved = logicMode == LogicMode.All
+            ? AreAllConditionsActive()
+            : IsAnyConditionActive();
 
         if (solved && !isSolved)
         {
             isSolved = true;
-
-            Debug.Log("PUZZLE SOLVED!");
-
             onSolved?.Invoke();
         }
-        else if (!solved)
+        else if (!solved && isSolved)
         {
             isSolved = false;
+            onUnsolved?.Invoke();
         }
+    }
+
+    private bool AreAllConditionsActive()
+    {
+        foreach (bool condition in conditions)
+        {
+            if (!condition)
+                return false;
+        }
+
+        return true;
+    }
+
+    private bool IsAnyConditionActive()
+    {
+        foreach (bool condition in conditions)
+        {
+            if (condition)
+                return true;
+        }
+
+        return false;
     }
 }
