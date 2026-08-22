@@ -1,58 +1,59 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PuzzleCondition : MonoBehaviour
 {
     [SerializeField]
-    private bool conditionA;
-
-    [SerializeField]
-    private bool conditionB;
+    private List<bool> conditions = new List<bool>
+    {
+        false,
+        false
+    };
 
     [SerializeField]
     private UnityEvent onSolved;
 
     private bool isSolved;
 
-    public void SetConditionA(bool value)
+    public void SetCondition(int index, bool value)
     {
-        conditionA = value;
+        if (index < 0 || index >= conditions.Count)
+            return;
+
+        conditions[index] = value;
         Evaluate();
     }
 
-    public void SetConditionB(bool value)
+    public void ActivateCondition(int index)
     {
-        conditionB = value;
-        Evaluate();
+        SetCondition(index, true);
     }
 
-    public void ActivateConditionA()
+    public void DeactivateCondition(int index)
     {
-        SetConditionA(true);
-    }
-
-    public void DeactivateConditionA()
-    {
-        SetConditionA(false);
-    }
-
-    public void ActivateConditionB()
-    {
-        SetConditionB(true);
-    }
-
-    public void DeactivateConditionB()
-    {
-        SetConditionB(false);
+        SetCondition(index, false);
     }
 
     private void Evaluate()
     {
-        bool solved = conditionA && conditionB;
+        bool solved = true;
+
+        foreach (bool condition in conditions)
+        {
+            if (!condition)
+            {
+                solved = false;
+                break;
+            }
+        }
 
         if (solved && !isSolved)
         {
             isSolved = true;
+
+            Debug.Log("PUZZLE SOLVED!");
+
             onSolved?.Invoke();
         }
         else if (!solved)
