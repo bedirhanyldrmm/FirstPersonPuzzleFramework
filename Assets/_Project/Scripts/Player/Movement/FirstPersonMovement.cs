@@ -21,21 +21,24 @@ public class FirstPersonMovement : MonoBehaviour
         {
             verticalVelocity = -2f;
         }
+
         if (playerInput.Jump && characterController.isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(-2f * gravity * jumpHeight);
         }
+
         Vector2 input = playerInput.Move;
         input = Vector2.ClampMagnitude(input, 1f);
+
         float currentSpeed = playerInput.Sprint
-    ? sprintSpeed
-    : moveSpeed;
+            ? sprintSpeed
+            : moveSpeed;
 
         verticalVelocity += gravity * Time.deltaTime;
 
         Vector3 horizontalMovement =
-    transform.right * input.x +
-    transform.forward * input.y;
+            transform.right * input.x +
+            transform.forward * input.y;
 
         horizontalMovement *= currentSpeed;
 

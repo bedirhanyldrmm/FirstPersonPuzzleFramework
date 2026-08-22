@@ -11,6 +11,9 @@ public class PlayerInput : MonoBehaviour
     public bool Sprint => inputActions.Player.Sprint.IsPressed();
     public bool Interact => inputActions.Player.Interact.WasPressedThisFrame();
 
+    public bool Save => inputActions.Player.Save.WasPressedThisFrame();
+    public bool Load => inputActions.Player.Load.WasPressedThisFrame();
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
