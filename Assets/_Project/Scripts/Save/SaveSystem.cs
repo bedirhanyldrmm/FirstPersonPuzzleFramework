@@ -8,22 +8,18 @@ public static class SaveSystem
     private static string SavePath =>
         Path.Combine(Application.persistentDataPath, SaveFileName);
 
-    public static void SavePlayerPosition(Transform player)
+    public static void Save(ISaveable saveable)
     {
-        SaveData data = new SaveData
-        {
-            playerPosition = player.position,
-            playerRotation = player.rotation
-        };
+        object state = saveable.CaptureState();
 
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(state, true);
         File.WriteAllText(SavePath, json);
 
         Debug.Log("GAME SAVED!");
-        Debug.Log($"Saved Position: {player.position}");
+        Debug.Log($"Save Path: {SavePath}");
     }
 
-    public static bool TryLoadPlayerPosition(Transform player)
+    public static bool TryLoad(ISaveable saveable)
     {
         if (!File.Exists(SavePath))
         {
@@ -32,29 +28,37 @@ public static class SaveSystem
         }
 
         string json = File.ReadAllText(SavePath);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+        PlayerSaveData data =
+            JsonUtility.FromJson<PlayerSaveData>(json);
 
         Debug.Log("GAME LOADING!");
-        Debug.Log($"Saved Position From File: {data.playerPosition}");
-        Debug.Log($"Current Position Before Load: {player.position}");
+        Debug.Log($"Saved Position From File: {data.position}");
 
-        CharacterController controller =
-            player.GetComponent<CharacterController>();
+        MonoBehaviour saveableBehaviour =
+            saveable as MonoBehaviour;
+
+        CharacterController controller = null;
+
+        if (saveableBehaviour != null)
+        {
+            controller =
+                saveableBehaviour.GetComponent<CharacterController>();
+        }
 
         if (controller != null)
         {
             controller.enabled = false;
         }
 
-        player.position = data.playerPosition;
-        player.rotation = data.playerRotation;
+        saveable.RestoreState(data);
 
         if (controller != null)
         {
             controller.enabled = true;
         }
 
-        Debug.Log($"Current Position After Load: {player.position}");
+        Debug.Log("GAME LOADED!");
 
         return true;
     }
