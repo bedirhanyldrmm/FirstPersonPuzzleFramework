@@ -43,7 +43,7 @@ public class InteractionDetector : MonoBehaviour
             out RaycastHit hit,
             interactionDistance))
         {
-            interactable = hit.collider.GetComponent<IInteractable>();
+            interactable = hit.collider.GetComponentInParent<IInteractable>();
         }
 
         if (interactable != currentInteractable)
