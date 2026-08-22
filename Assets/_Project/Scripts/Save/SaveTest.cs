@@ -3,23 +3,23 @@ using UnityEngine;
 public class SaveTest : MonoBehaviour
 {
     [SerializeField]
-    private PlayerSaveable playerSaveable;
+    private PlayerInput playerInput;
 
     [SerializeField]
-    private PlayerInput playerInput;
+    private SaveManager saveManager;
 
     private void Update()
     {
         if (playerInput.Save)
         {
             Debug.Log("F5 BASILDI!");
-            SaveSystem.Save(playerSaveable);
+            saveManager.SaveGame();
         }
 
         if (playerInput.Load)
         {
             Debug.Log("F9 BASILDI!");
-            SaveSystem.TryLoad(playerSaveable);
+            saveManager.LoadGame();
         }
     }
 }

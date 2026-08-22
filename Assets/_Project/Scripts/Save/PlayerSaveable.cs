@@ -15,7 +15,21 @@ public class PlayerSaveable : MonoBehaviour, ISaveable
     {
         PlayerSaveData data = (PlayerSaveData)state;
 
+        CharacterController controller = GetComponent<CharacterController>();
+
+        if (controller != null)
+        {
+            controller.enabled = false;
+        }
+
         transform.position = data.position;
         transform.rotation = data.rotation;
+
+        if (controller != null)
+        {
+            controller.enabled = true;
+        }
+
+        Debug.Log($"Player restored to: {transform.position}");
     }
 }
