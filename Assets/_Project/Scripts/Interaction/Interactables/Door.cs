@@ -26,6 +26,7 @@ public class Door : MonoBehaviour, IInteractable
     private bool consumeKey;
 
     private bool isOpen;
+    public bool IsOpen => isOpen;
     private Quaternion closedRotation;
     private Quaternion openRotation;
 

@@ -94,14 +94,31 @@ public static class SaveSystem
 
     private static string GetSaveId(ISaveable saveable)
     {
-        return ((MonoBehaviour)saveable).gameObject.name;
+        return saveable.GetType().Name;
     }
 
     private static object CreateState(ISaveable saveable, string json)
     {
+        Debug.Log($"STATE JSON: {json}");
+
+        if (saveable is InventorySaveable)
+        {
+            return JsonUtility.FromJson<InventorySaveData>(json);
+        }
+
         if (saveable is PlayerSaveable)
         {
-            return JsonUtility.FromJson<PlayerSaveData>(json);
+            PlayerSaveData data =
+                JsonUtility.FromJson<PlayerSaveData>(json);
+
+            Debug.Log($"PARSED PLAYER POSITION: {data.position}");
+
+            return data;
+        }
+
+        if (saveable is DoorSaveable)
+        {
+            return JsonUtility.FromJson<DoorSaveData>(json);
         }
 
         throw new InvalidOperationException(

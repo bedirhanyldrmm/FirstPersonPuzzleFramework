@@ -4,6 +4,8 @@ public class PlayerSaveable : MonoBehaviour, ISaveable
 {
     public object CaptureState()
     {
+        Debug.Log($"PLAYER SAVE POSITION: {transform.position}");
+
         return new PlayerSaveData
         {
             position = transform.position,

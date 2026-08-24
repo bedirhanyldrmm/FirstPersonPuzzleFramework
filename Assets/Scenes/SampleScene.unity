@@ -823,6 +823,7 @@ GameObject:
   - component: {fileID: 770069715}
   - component: {fileID: 770069716}
   - component: {fileID: 770069717}
+  - component: {fileID: 770069718}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -942,6 +943,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39606956ae403c44b3d90f25750cef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
+--- !u!114 &770069718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770069710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d6b3c1a24a1ce4aa3a8fbb9ff6ed65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSaveable
 --- !u!1 &814025606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,8 +1927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17b6c49d1aecb74caa3ee87513a5e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveTest
-  player: {fileID: 770069714}
   playerInput: {fileID: 770069712}
+  saveManager: {fileID: 1428320327}
 --- !u!4 &1311094182
 Transform:
   m_ObjectHideFlags: 0
@@ -2213,6 +2226,50 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 0.5, z: 4}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1428320326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428320328}
+  - component: {fileID: 1428320327}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1428320327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428320326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d150dd7011e13944287df013f80e7ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+--- !u!4 &1428320328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428320326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.19203, y: -5.09351, z: 3.95719}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2672,3 +2729,4 @@ SceneRoots:
   - {fileID: 476956500}
   - {fileID: 1376591697}
   - {fileID: 1311094182}
+  - {fileID: 1428320328}

@@ -7,23 +7,34 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(string itemId)
     {
-        items.Add(itemId);
+        if (items.Add(itemId))
+        {
+            Debug.Log($"Item added to inventory: {itemId}");
+        }
     }
-
-        
 
     public bool HasItem(string itemId)
     {
-        bool hasItem = items.Contains(itemId);
-
-        
-
-        return hasItem;
+        return items.Contains(itemId);
     }
-
 
     public void RemoveItem(string itemId)
     {
         items.Remove(itemId);
+    }
+
+    public List<string> GetItems()
+    {
+        return new List<string>(items);
+    }
+
+    public void SetItems(List<string> savedItems)
+    {
+        items.Clear();
+
+        foreach (string itemId in savedItems)
+        {
+            items.Add(itemId);
+        }
     }
 }

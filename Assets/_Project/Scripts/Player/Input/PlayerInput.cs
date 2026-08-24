@@ -21,11 +21,19 @@ public class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
+        if (inputActions == null)
+        {
+            inputActions = new PlayerInputActions();
+        }
+
         inputActions.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Disable();
+        if (inputActions != null)
+        {
+            inputActions.Disable();
+        }
     }
 }
