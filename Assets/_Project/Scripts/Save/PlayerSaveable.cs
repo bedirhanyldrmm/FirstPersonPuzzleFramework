@@ -27,11 +27,13 @@ public class PlayerSaveable : MonoBehaviour, ISaveable
         transform.position = data.position;
         transform.rotation = data.rotation;
 
+        Debug.Log($"AFTER POSITION SET: {transform.position}");
+
         if (controller != null)
         {
             controller.enabled = true;
         }
 
-        Debug.Log($"Player restored to: {transform.position}");
+        Debug.Log($"AFTER CONTROLLER ENABLE: {transform.position}");
     }
 }
