@@ -8,6 +8,14 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         RegisterSaveables();
+
+        if (PlayerPrefs.GetInt("LoadGameRequested", 0) == 1)
+        {
+            PlayerPrefs.SetInt("LoadGameRequested", 0);
+            PlayerPrefs.Save();
+
+            LoadGame();
+        }
     }
 
     private void RegisterSaveables()
