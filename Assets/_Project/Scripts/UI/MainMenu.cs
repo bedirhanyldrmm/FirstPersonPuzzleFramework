@@ -13,8 +13,6 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         PlayerPrefs.SetInt("LoadGameRequested", 1);
-        PlayerPrefs.Save();
-
         SceneManager.LoadScene(gameSceneName);
     }
 
