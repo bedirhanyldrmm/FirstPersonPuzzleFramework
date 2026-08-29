@@ -61,7 +61,7 @@ public class LeverInteractable : MonoBehaviour, IInteractable
     public string GetInteractionPrompt()
     {
         return isActive
-            ? "Leverı Kapat"
-            : "Leverı Aç";
+            ? "E - TURN LEVER OFF"
+            : "E - TURN LEVER ON";
     }
 }

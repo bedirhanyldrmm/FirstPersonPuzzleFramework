@@ -60,6 +60,8 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
 
     public string GetInteractionPrompt()
     {
-        return isPressed ? "Butonu Bırak" : "Butona Bas";
+        return isPressed
+            ? "E - RELEASE BUTTON"
+            : "E - PRESS BUTTON";
     }
 }

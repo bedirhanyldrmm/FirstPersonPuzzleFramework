@@ -131,7 +131,7 @@ public class Door : MonoBehaviour, IInteractable
     public string GetInteractionPrompt()
     {
         return isOpen
-            ? "Kapıyı Kapat"
-            : "Kapıyı Aç";
+            ? "E - CLOSE DOOR"
+            : "E - OPEN DOOR";
     }
 }
