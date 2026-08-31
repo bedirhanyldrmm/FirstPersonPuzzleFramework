@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private SaveManager saveManager;
     [SerializeField] private GameObject saveFeedbackText;
+
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     private bool isPaused;
 
@@ -44,8 +47,6 @@ public class PauseMenu : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log("SAVE BUTTON CLICKED!");
-
         if (saveManager != null)
         {
             saveManager.SaveGame();
@@ -60,6 +61,7 @@ public class PauseMenu : MonoBehaviour
             Debug.LogError("SaveManager reference is NULL!");
         }
     }
+
     private IEnumerator HideSaveFeedback()
     {
         yield return new WaitForSecondsRealtime(2f);
@@ -69,8 +71,6 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("LOAD BUTTON CLICKED!");
-
         if (saveManager != null)
         {
             saveManager.LoadGame();
@@ -78,12 +78,18 @@ public class PauseMenu : MonoBehaviour
             isPaused = false;
             pausePanel.SetActive(false);
             Time.timeScale = 1f;
-
-            Debug.Log("PAUSE MENU CLOSED AFTER LOAD!");
         }
         else
         {
             Debug.LogError("SaveManager reference is NULL!");
         }
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }

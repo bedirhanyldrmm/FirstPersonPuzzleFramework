@@ -35,21 +35,15 @@ public class SaveManager : MonoBehaviour
                 saveables.Add(saveable);
             }
         }
-
-        Debug.Log($"Registered Saveables: {saveables.Count}");
     }
 
     public void SaveGame()
     {
-        Debug.Log("SAVE GAME REQUESTED");
-
         SaveSystem.Save(saveables);
     }
 
     public void LoadGame()
     {
-        Debug.Log("LOAD GAME REQUESTED");
-
         SaveSystem.TryLoad(saveables);
     }
 }

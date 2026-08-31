@@ -40,10 +40,6 @@ public static class SaveSystem
 
         string json = JsonUtility.ToJson(saveFile, true);
         File.WriteAllText(SavePath, json);
-
-        Debug.Log("GAME SAVED!");
-        Debug.Log($"Save Path: {SavePath}");
-        Debug.Log($"Saved Objects: {saveFile.entries.Count}");
     }
 
     public static bool TryLoad(List<ISaveable> saveables)
@@ -63,9 +59,6 @@ public static class SaveSystem
             return false;
         }
 
-        Debug.Log("GAME LOADING!");
-        Debug.Log($"Saved Objects: {saveFile.entries.Count}");
-
         foreach (ISaveable saveable in saveables)
         {
             string id = GetSaveId(saveable);
@@ -83,11 +76,7 @@ public static class SaveSystem
             object state = CreateState(saveable, entry.state);
 
             saveable.RestoreState(state);
-
-            Debug.Log($"Loaded: {id}");
         }
-
-        Debug.Log("GAME LOADED!");
 
         return true;
     }
@@ -99,8 +88,6 @@ public static class SaveSystem
 
     private static object CreateState(ISaveable saveable, string json)
     {
-        Debug.Log($"STATE JSON: {json}");
-
         if (saveable is InventorySaveable)
         {
             return JsonUtility.FromJson<InventorySaveData>(json);
@@ -108,12 +95,7 @@ public static class SaveSystem
 
         if (saveable is PlayerSaveable)
         {
-            PlayerSaveData data =
-                JsonUtility.FromJson<PlayerSaveData>(json);
-
-            Debug.Log($"PARSED PLAYER POSITION: {data.position}");
-
-            return data;
+            return JsonUtility.FromJson<PlayerSaveData>(json);
         }
 
         if (saveable is DoorSaveable)
