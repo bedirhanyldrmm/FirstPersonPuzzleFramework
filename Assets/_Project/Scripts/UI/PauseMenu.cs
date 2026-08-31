@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject saveFeedbackText;
 
     [SerializeField] private string mainMenuSceneName = "MainMenu";
-
+    [SerializeField] private InventoryUI inventoryUI;
     private bool isPaused;
 
     private void Awake()
@@ -20,17 +20,25 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (playerInput != null && playerInput.Pause)
+        if (playerInput == null)
+            return;
+
+        if (inventoryUI != null && inventoryUI.ClosedThisFrame)
+            return;
+
+        if (playerInput.Pause)
         {
+            if (inventoryUI != null && inventoryUI.IsOpen)
+                return;
+
             if (isPaused)
                 Resume();
             else
                 Pause();
         }
     }
-
     public void Pause()
     {
         isPaused = true;

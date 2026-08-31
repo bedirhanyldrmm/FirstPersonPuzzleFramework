@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public bool Save => inputActions.Player.Save.WasPressedThisFrame();
     public bool Load => inputActions.Player.Load.WasPressedThisFrame();
     public bool Pause => inputActions.Player.Pause.WasPressedThisFrame();
+    public bool Inventory => inputActions.Player.Inventory.WasPressedThisFrame();
 
     private void Awake()
     {
